@@ -8,7 +8,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-
+        classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.8.2'
     }
 }
 repositories {
@@ -19,4 +19,14 @@ repositories {
 
 dependencies {
 
+}
+
+apply plugin: 'javafx-gradle-plugin'
+
+jfx {
+    // minimal requirement for jfxJar-task
+    mainClass = 'com.oualid.jMonkeyWizard.Main'
+
+    // minimal requirement for jfxNative-task
+    vendor = 'jMonkeyWizard'
 }
