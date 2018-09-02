@@ -154,6 +154,7 @@ public class Controller extends VBox {
         } else {
             specialWords.put("androidDependencies", "");
             specialWords.put("androidClasspath", "");
+            specialWords.put("androidRepository", "");
         }
         progressBar.setProgress(40);
         if (ios.isSelected()) {
@@ -206,6 +207,7 @@ public class Controller extends VBox {
 
         // add jme3 core dependency to Core module
         coreDependencies = "\t\t\tcompile \"org.jmonkeyengine:jme3-core:$JMonkey_version\"\n";
+
         // make gradle wrapper files
         fileUtils.createFileFromTmp(gradleDir, "gradle-wrapper.properties", "template/gradle/wrapper/gradle-wrapper.properties", true);
         fileUtils.copyFile("template/gradle/wrapper/gradle-wrapper.jar", gradleDir + "/gradle-wrapper.jar", true);
@@ -279,7 +281,8 @@ public class Controller extends VBox {
                 "\t\t\tcompile \"org.jmonkeyengine:jme3-android-native:$JMonkey_version\"\n" +
                 androidDependencies + "\n\t}\n}";
         specialWords.put("androidDependencies", androidDependencies);
-        specialWords.put("androidClasspath", "classpath 'com.android.tools.build:gradle:3.0.1'");
+        specialWords.put("androidClasspath", "classpath 'com.android.tools.build:gradle:3.1.0'");
+        specialWords.put("androidRepository", "\t\tgoogle()");
         modules = modules + ", 'android'";
     }
 
@@ -324,6 +327,8 @@ public class Controller extends VBox {
             androidDependencies = androidDependencies + "\t\t\tcompile \"org.jmonkeyengine:jme3-bullet-native-android:$JMonkey_version\"\n";
             coreDependencies = coreDependencies + "\t\t\tcompile \"org.jmonkeyengine:jme3-bullet:$JMonkey_version\"\n";
         } else if (jBullet.isSelected()) {
+            coreDependencies = coreDependencies + "\t\t\tcompile \"jbullet:jbullet:0.0.1\"\n";
+            coreDependencies = coreDependencies + "\t\t\tcompile \"stack-alloc:stack-alloc:0.0.1\"\n";
             coreDependencies = coreDependencies + "\t\t\tcompile \"org.jmonkeyengine:jme3-jbullet:$JMonkey_version\"\n";
         }
         if (terrain.isSelected()) {
